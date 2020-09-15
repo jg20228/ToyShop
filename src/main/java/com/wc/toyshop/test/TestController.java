@@ -11,4 +11,10 @@ public class TestController {
 		System.out.println("index");
 		return "index";
 	}
+	
+	@GetMapping("/test/index")
+	public String testIndex() {
+		System.out.println("testIndex");
+		return "index";
+	}
 }
