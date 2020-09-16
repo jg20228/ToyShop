@@ -18,16 +18,17 @@ DROP table user;
 ##유저
 CREATE TABLE user(
 	id int auto_increment primary key,
+    username varchar(100) unique not null,
     email varchar(100) unique not null,
     password varchar(100) not null,
     name varchar(100) not null,
     address varchar(100) not null,
     phone varchar(100) not null,
     gender varchar(100) not null,
-    profileImage varchar(100) not null,
+    profileImage varchar(100),
     role varchar(100) not null,
-	provider varchar(100) not null,
-	providerId varchar(100) not null,
+	provider varchar(100),
+	providerId varchar(100),
     createDate timestamp
 ) engine=InnoDB default charset=utf8;
 

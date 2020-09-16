@@ -17,4 +17,16 @@ public class TestController {
 		System.out.println("testIndex");
 		return "index";
 	}
+	
+	@GetMapping("/test/join")
+	public String testJoin() {
+		System.out.println("testJoin");
+		return "auth/join";
+	}
+	
+	@GetMapping("/test/login")
+	public String testLogin() {
+		System.out.println("testLogin");
+		return "auth/login";
+	}
 }

@@ -19,6 +19,11 @@
 	</properties>
 
 	<dependencies>
+		<!-- spring securtiy안에 authentication 접근 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 		<!-- 내 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 		<dependency>

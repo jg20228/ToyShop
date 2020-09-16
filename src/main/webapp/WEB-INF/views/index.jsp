@@ -3,5 +3,9 @@
 <%@include file="layout/header.jsp"%>
 <div class="container">
 <h1>인덱스 페이지입니다.</h1>
+${principal.username}
+${principal.password}
+${principal.user.id}
 </div>
 <%@include file="layout/footer.jsp"%>
+
