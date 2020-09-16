@@ -1,7 +1,9 @@
 package com.wc.toyshop.test;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TestController {
@@ -18,15 +20,11 @@ public class TestController {
 		return "index";
 	}
 	
-	@GetMapping("/test/join")
-	public String testJoin() {
-		System.out.println("testJoin");
-		return "auth/join";
-	}
-	
-	@GetMapping("/test/login")
-	public String testLogin() {
-		System.out.println("testLogin");
-		return "auth/login";
+	//특정 메소드에 걸때 사용
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/admin/index")
+	public @ResponseBody String adminTest() {
+		System.out.println("adminTest");
+		return "어드민테스트";
 	}
 }

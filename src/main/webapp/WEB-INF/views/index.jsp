@@ -6,6 +6,11 @@
 ${principal.username}
 ${principal.password}
 ${principal.user.id}
+${principal.user.role}
+<br/>
+<c:if test="${principal.user.role eq 'ROLE_ADMIN'}">
+참
+</c:if>
 </div>
 <%@include file="layout/footer.jsp"%>
 

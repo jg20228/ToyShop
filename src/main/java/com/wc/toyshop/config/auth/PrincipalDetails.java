@@ -1,4 +1,4 @@
-package com.wc.toyshop.auth;
+package com.wc.toyshop.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;

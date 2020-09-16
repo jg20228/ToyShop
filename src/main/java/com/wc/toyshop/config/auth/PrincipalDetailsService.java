@@ -1,4 +1,4 @@
-package com.wc.toyshop.auth;
+package com.wc.toyshop.config.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
