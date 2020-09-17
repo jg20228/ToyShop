@@ -35,12 +35,12 @@
 			<ul class="navbar-nav">
 				<c:choose>
 					<c:when test="${empty principal}">
-						<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
 						<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
 						<li class="nav-item"><a class="nav-link" href="/auth/join">회원가입</a></li>
 					</c:when>
 					<c:when test="${principal.user.role eq 'ROLE_ADMIN'}">
-						<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
@@ -50,7 +50,7 @@
 					</c:when>
 
 					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>

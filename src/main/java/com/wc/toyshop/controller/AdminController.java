@@ -13,17 +13,20 @@ import com.wc.toyshop.controller.dto.AddProductReqDto;
 import com.wc.toyshop.controller.dto.CommonRespDto;
 import com.wc.toyshop.controller.dto.UpdateProductReqDto;
 import com.wc.toyshop.service.AdminService;
+import com.wc.toyshop.service.ProductService;
 
 @Controller
 public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	private ProductService productService;
 	
 	//상품리스트 보기
 	@GetMapping("/admin/product")
 	public String productList(Model model) {
-		model.addAttribute("products", adminService.모든상품());
+		model.addAttribute("products", productService.모든상품());
 		return "/admin/product/productList";
 	}
 	//상품등록하러가기

@@ -15,6 +15,7 @@
 				<th>사진</th>
 				<th>설명</th>
 				<th>가격</th>
+				<th>재고</th>
 				<th>등록일</th>
 				<th>수정</th>
 				<th>삭제</th>
@@ -25,9 +26,10 @@
 				<tr>
 					<td>${product.id}</td>
 					<td>${product.name}</td>
-					<td><img src="http://localhost:8080/img/${product.imgUrl}"/></td>
+					<td><img src="http://localhost:8080/img/${product.imgUrl}" class="img"/></td>
 					<td>${product.disc}</td>
 					<td>${product.price}</td>
+					<td>${product.count}</td>
 					<td><fmt:formatDate value="${product.createDate}" pattern="yyyy-MM-dd" /></td>
 					<td><a href="/admin/productUpdateForm/${product.id}">수정</a></td>
 					<td><i onclick="deleteById(${product.id},this);">삭제</i></td>

@@ -8,13 +8,19 @@
 		FROM product
 	</select>
 	
+	<select id="findAllJoin" resultType="com.wc.toyshop.controller.respdto.ProductRespDto">
+		SELECT p.id, p.name, p.imgUrl, p.disc, p.price, p.createDate, s.id "stockId", s.productId, s.count
+		FROM product p INNER JOIN stock s
+		ON p.id = s.productId
+	</select>
+	
 	<select id="findById" resultType="com.wc.toyshop.model.Product">
 		SELECT *
 		FROM product
 		WHERE id = #{id}
 	</select>
 
-	<insert id="productSave">
+	<insert id="productSave" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO product(name, imgUrl, disc, price,createDate)
 		VALUES(#{name},#{imgUrl},#{disc},#{price},now())
 	</insert>
