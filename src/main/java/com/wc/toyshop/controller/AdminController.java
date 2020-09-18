@@ -63,5 +63,7 @@ public class AdminController {
 	public @ResponseBody CommonRespDto<?> deleteProduct(int id) {
 		adminService.상품삭제(id);
 		return new CommonRespDto<String>(1, "삭제완료");
+
 	}
+	
 }

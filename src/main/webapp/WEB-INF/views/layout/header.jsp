@@ -41,7 +41,7 @@
 					</c:when>
 					<c:when test="${principal.user.role eq 'ROLE_ADMIN'}">
 						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">장바구니</a></li>
+						<li class="nav-item"><a class="nav-link" href="/basket/list/${principal.user.id}">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/product">상품관리</a></li>
@@ -51,7 +51,7 @@
 
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">장바구니</a></li>
+						<li class="nav-item"><a class="nav-link" href="/basket/list/${principal.user.id}">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 					</c:otherwise>

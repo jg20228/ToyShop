@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wc.toyshop.repository.BasketRepository">
+	<select id="findyAllJoin" resultType="com.wc.toyshop.controller.respdto.BasketRespDto">
+		SELECT b.id, p.imgUrl, p.name, p.price, b.count
+		FROM user u INNER JOIN basket b
+		ON u.id = b.userId
+		INNER JOIN product p
+		ON p.id = b.productId
+		WHERE u.id = #{userId}
+	</select>
+
+	<select id="findById" resultType="com.wc.toyshop.model.Basket">
+		SELECT id, userId, productId, count, createDate
+		FROM basket
+		WHERE id = #{id}
+	</select>
+
+	<select id="findyByUserIdAndProductId" resultType="com.wc.toyshop.model.Basket">
+		SELECT id, userId, productId, count, createDate
+		FROM basket
+		WHERE userId = #{userId} AND productId = #{productId}
+	</select>
+	
+	<insert id="save">
+		INSERT INTO basket(userId, productId, count ,createDate)
+		VALUES(#{userId},#{productId},#{count},now())
+	</insert>
+	
+	<update id="update">
+		UPDATE basket SET count = #{count}
+		WHERE id = #{id} 
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM basket
+		WHERE id = #{id}
+	</delete>
+</mapper>
