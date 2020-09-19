@@ -38,7 +38,7 @@
 			</tr>
 			<tr>
 				<td colspan="6"></td>
-				<td><button onclick="tester()">결제</button></td>
+				<td><button id="btn-pay">결제</button></td>
 			</tr>
 		</tbody>
 	</table>
@@ -53,9 +53,9 @@ $("#btn-delete").on("click", function () {
   // order row 삭제
   for (var i = chkList.length - 1; i > -1; i--) {
 	  var temp = chkList.eq(i).attr('id');
-    console.log(chkList.eq(i).attr('id'));
-    idList.push(temp);
+    //console.log(chkList.eq(i).attr('id'));
     chkList.eq(i).closest("tr").remove();
+    idList.push(temp);
   }
   console.log(idList);
   
@@ -72,7 +72,97 @@ $("#btn-delete").on("click", function () {
 			dataType: "text"
 		}).done(function(resp){
 			alert("성공");
+			  for (var i = chkList.length - 1; i > -1; i--) {
+				  var temp = chkList.eq(i).attr('id');
+			    chkList.eq(i).closest("tr").remove();
+			  }
 			console.log(resp);
+		}).fail(function(error){
+			alert("실패");
+			console.log(error);
+		});
+});
+
+//선택된 상품 결제 버튼 클릭 시
+$("#btn-pay").on("click", function () {
+  var chkList = $('input[name="item"]:checked');
+  var idList = [];
+  // chcekd 된 product row 삭제
+  // order row 삭제
+  for (var i = chkList.length - 1; i > -1; i--) {
+	  var temp = chkList.eq(i).attr('id');
+    console.log(chkList.eq(i).attr('id'));
+    idList.push(temp);
+    //chkList.eq(i).closest("tr").remove();
+  }
+  console.log(idList);
+  
+		let data = {
+				"idList" : idList
+		}
+		console.log("//////////");
+		console.log(data);
+		$.ajax({
+			type: "POST",
+			url: "/orders/sum",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json"
+		}).done(function(resp){
+			alert("성공");
+			console.log(resp.data);
+			//DB에 있는 결제금액을 가져와서 넣음
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+			    amount : resp.data, //이 부분
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			        let ordersData = {
+								impId : rsp.imp_uid,
+								merchantId : rsp.merchant_uid,
+								applyNum : rsp.apply_num,
+								totalPay : rsp.paid_amount,
+								idList : idList
+					        }
+			        console.log(ordersData);
+			        $.ajax({
+						type: "POST",
+						url: "/orders",
+						data: JSON.stringify(ordersData),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json"
+					}).done(function(resp){
+						alert("성공");
+						  for (var i = chkList.length - 1; i > -1; i--) {
+							  var temp = chkList.eq(i).attr('id');
+						    chkList.eq(i).closest("tr").remove();
+						  }
+					}).fail(function(error){
+						alert("실패");
+						console.log(error);
+					});
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+
+			
 		}).fail(function(error){
 			alert("실패");
 			console.log(error);
@@ -88,31 +178,7 @@ function init() {
 init();
 
 function tester(){
-	IMP.request_pay({
-	    pg : 'inicis', // version 1.1.0부터 지원.
-	    pay_method : 'card',
-	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트',
-	    amount : 14000,
-	    buyer_email : 'iamport@siot.do',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '서울특별시 강남구 삼성동',
-	    buyer_postcode : '123-456',
-	    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-	}, function(rsp) {
-	    if ( rsp.success ) {
-	        var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
-	    } else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	    alert(msg);
-	});
+
 }
 
 function deleteBasket(id,obj){

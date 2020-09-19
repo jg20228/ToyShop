@@ -5,6 +5,6 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class DeleteBasketListReqDto {
+public class BasketListReqDto {
 	private List<String> idList;
 }

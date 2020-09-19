@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wc.toyshop.controller.dto.AddBasketReqDto;
-import com.wc.toyshop.controller.dto.DeleteBasketListReqDto;
+import com.wc.toyshop.controller.dto.BasketListReqDto;
 import com.wc.toyshop.controller.dto.UpdateBasketReqDto;
 import com.wc.toyshop.controller.respdto.BasketRespDto;
 import com.wc.toyshop.model.Basket;
@@ -20,7 +20,7 @@ public class BasketService {
 	private BasketRepository basketRepository;
 	
 	@Transactional
-	public void 장바구니목록삭제(DeleteBasketListReqDto dto) {
+	public void 장바구니목록삭제(BasketListReqDto dto) {
 		for (String id : dto.getIdList()) {
 			basketRepository.deleteById(Integer.parseInt(id));
 		}

@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/auth/**").permitAll()
 			.antMatchers("/product/**").permitAll()
 			.antMatchers("/basket/**").permitAll()
+			.antMatchers("/orders/**").permitAll()
 			.antMatchers("/test/**").permitAll() //여기만 열어둠
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") //여기는 권한이 있어야함
 			.anyRequest().denyAll() //모두 닫음

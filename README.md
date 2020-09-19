@@ -65,9 +65,9 @@ CREATE TABLE stock(
 CREATE TABLE orders(
 	id int auto_increment primary key,
     userId int not null,
-    impId int not null,
-    merchantId int not null,
-    applyNum int not null,
+    impId varchar(100) not null,
+    merchantId varchar(100) not null,
+    applyNum varchar(100) not null,
     totalPay int not null,
     createDate timestamp,
 	FOREIGN KEY(userId) REFERENCES user(id)

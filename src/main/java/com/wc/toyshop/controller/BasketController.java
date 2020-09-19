@@ -17,7 +17,7 @@ import com.wc.toyshop.config.auth.LoginUserAnnotation;
 import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.controller.dto.AddBasketReqDto;
 import com.wc.toyshop.controller.dto.CommonRespDto;
-import com.wc.toyshop.controller.dto.DeleteBasketListReqDto;
+import com.wc.toyshop.controller.dto.BasketListReqDto;
 import com.wc.toyshop.controller.dto.UpdateBasketReqDto;
 import com.wc.toyshop.service.BasketService;
 
@@ -61,7 +61,7 @@ public class BasketController {
 	
 	//장바구니들 삭제하기
 	@DeleteMapping("/basket/list")
-	public @ResponseBody CommonRespDto<?> deleteBasketList(@RequestBody DeleteBasketListReqDto dto) {
+	public @ResponseBody CommonRespDto<?> deleteBasketList(@RequestBody BasketListReqDto dto) {
 		basketService.장바구니목록삭제(dto);
 		return new CommonRespDto<String>(1,"성공");
 	}
