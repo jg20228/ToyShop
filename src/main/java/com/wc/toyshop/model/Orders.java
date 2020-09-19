@@ -12,6 +12,9 @@ import lombok.Setter;
 public class Orders {
 	private int id;
 	private int userId;
+	private int impId;
+	private int merchantId;
+	private int applyNum;
 	private int totalPay;
 	private Timestamp createDate;
 }
