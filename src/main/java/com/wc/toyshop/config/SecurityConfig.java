@@ -1,12 +1,24 @@
 package com.wc.toyshop.config;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import com.wc.toyshop.util.Script;
 
 
 @Configuration // IoC Bean 등록
@@ -39,6 +51,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginPage("/auth/login")
 			.loginProcessingUrl("/auth/loginProc") //시큐리티가 낚아채서 대신 로그인 진행함
 			.defaultSuccessUrl("/test/index")
+			.failureHandler(new AuthenticationFailureHandler() {
+				
+				@Override
+				public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+						AuthenticationException exception) throws IOException, ServletException {
+					response.setContentType("text/html; charset=utf-8");
+					PrintWriter out = response.getWriter();
+					out.print(Script.back("아이디 혹은 비밀번호가 틀립니다."));
+					
+					//여기서 세션을 무효화 하는게 맞는지 모르겠음
+					HttpSession session = request.getSession();
+					session.invalidate();
+					return;
+				}
+			})
 			;
 	}
 }

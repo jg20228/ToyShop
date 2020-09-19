@@ -26,7 +26,7 @@
 		<sec:authentication property="principal" var="principal" />
 	</sec:authorize>
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-		<a class="navbar-brand" href="#">메인</a>
+		<a class="navbar-brand" href="/test/index">메인</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
 					</c:when>
 					<c:when test="${principal.user.role eq 'ROLE_ADMIN'}">
 						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
-						<li class="nav-item"><a class="nav-link" href="/basket/list/${principal.user.id}">장바구니</a></li>
+						<li class="nav-item"><a class="nav-link" href="/basket/list/">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/product">상품관리</a></li>
@@ -51,7 +51,7 @@
 
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
-						<li class="nav-item"><a class="nav-link" href="/basket/list/${principal.user.id}">장바구니</a></li>
+						<li class="nav-item"><a class="nav-link" href="/basket/list/">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 					</c:otherwise>

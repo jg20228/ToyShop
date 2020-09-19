@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wc.toyshop.config.auth.LoginUserAnnotation;
+import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.controller.dto.AddBasketReqDto;
 import com.wc.toyshop.controller.dto.CommonRespDto;
 import com.wc.toyshop.controller.dto.UpdateBasketReqDto;
@@ -22,9 +24,9 @@ public class BasketController {
 	private BasketService basketService;
 	
 	//장바구니 조회하기
-	@GetMapping("/basket/list/{userId}")
-	public String viewBasket(@PathVariable int userId, Model model) {
-		model.addAttribute("baskets", basketService.장바구니조회(userId));
+	@GetMapping("/basket/list/")
+	public String viewBasket(@LoginUserAnnotation LoginUser loginUser, Model model) {
+		model.addAttribute("baskets", basketService.장바구니조회(loginUser.getId()));
 		return "basket/basketList";
 	}
 	

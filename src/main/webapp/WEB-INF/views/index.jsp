@@ -11,6 +11,8 @@ ${principal.user.role}
 <c:if test="${principal.user.role eq 'ROLE_ADMIN'}">
 참
 </c:if>
+<hr/>
+${loginUser}
 </div>
 <%@include file="layout/footer.jsp"%>
 
