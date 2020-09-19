@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wc.toyshop.controller.dto.AddBasketReqDto;
+import com.wc.toyshop.controller.dto.DeleteBasketListReqDto;
 import com.wc.toyshop.controller.dto.UpdateBasketReqDto;
 import com.wc.toyshop.controller.respdto.BasketRespDto;
 import com.wc.toyshop.model.Basket;
@@ -17,6 +19,13 @@ public class BasketService {
 	@Autowired
 	private BasketRepository basketRepository;
 	
+	@Transactional
+	public void 장바구니목록삭제(DeleteBasketListReqDto dto) {
+		for (String id : dto.getIdList()) {
+			basketRepository.deleteById(Integer.parseInt(id));
+		}
+	}
+	
 	public void 장바구니삭제(int id) {
 		basketRepository.deleteById(id);
 	}
@@ -25,12 +34,14 @@ public class BasketService {
 		return basketRepository.findyAllJoin(userId);
 	}
 	
+	@Transactional
 	public void 장바구니수정(UpdateBasketReqDto updateBasketReqDto) {
 		Basket basketEntity = basketRepository.findById(updateBasketReqDto.getId());
 		basketEntity.setCount(updateBasketReqDto.getCount());
 		basketRepository.update(basketEntity);
 	}
 	
+	@Transactional
 	public void 장바구니추가(AddBasketReqDto addBasketReqDto) {
 		//검사
 		Basket basketEntity = basketRepository.findyByUserIdAndProductId(addBasketReqDto.getUserId(),addBasketReqDto.getProductId());

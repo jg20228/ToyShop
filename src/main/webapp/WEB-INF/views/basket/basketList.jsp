@@ -3,11 +3,11 @@
 <%@include file="../layout/header.jsp"%>
 
 <div class="container">
-<h1>장바구니 페이지입니다.</h1>
+	<h1>장바구니 페이지입니다.</h1>
 	<table border="1" class="table">
 		<thead>
 			<tr>
-				<th><input type="checkbox" class="check-all"/>&nbsp전체선택</th>
+				<th><input type="checkbox" class="check-all" />&nbsp전체선택</th>
 				<th>사진</th>
 				<th>상품</th>
 				<th>금액</th>
@@ -19,19 +19,23 @@
 		<tbody>
 			<c:forEach var="basket" items="${baskets}">
 				<tr>
-					<td><input type="checkbox" class="item"/></td>
+					<td><input type="checkbox" id="${basket.id}" name="item"
+						class="item" /></td>
 					<td><img src="http://localhost:8080/img/${basket.imgUrl}"
 						class="img" /></td>
 					<td>${basket.name}</td>
 					<td id="price-${basket.id}">${basket.price}</td>
-					<td>
-						<input id="${basket.id}" type="number" min="1" max="10"
-						value="${basket.count}" name="count"/>
-					</td>
+					<td><input id="${basket.id}" type="number" min="1" max="10"
+						value="${basket.count}" name="count" /></td>
 					<td class="sum${basket.id}">${basket.price * basket.count}</td>
-					<td><button type="button" onclick="deleteBasket(${basket.id},this)">삭제</button></td>
+					<td><button type="button"
+							onclick="deleteBasket(${basket.id},this)">삭제</button></td>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td colspan="6"></td>
+				<td><button id="btn-delete">선택된 상품 삭제</button></td>
+			</tr>
 			<tr>
 				<td colspan="6"></td>
 				<td><button onclick="tester()">결제</button></td>
@@ -41,6 +45,41 @@
 
 </div>
 <script>
+// 선택된 상품 삭제 버튼 클릭 시
+$("#btn-delete").on("click", function () {
+  var chkList = $('input[name="item"]:checked');
+  let idList = [];
+  // chcekd 된 product row 삭제
+  // order row 삭제
+  for (var i = chkList.length - 1; i > -1; i--) {
+	  var temp = chkList.eq(i).attr('id');
+    console.log(chkList.eq(i).attr('id'));
+    idList.push(temp);
+    chkList.eq(i).closest("tr").remove();
+  }
+  console.log(idList);
+  
+		let data = {
+				"idList" : idList
+		}
+		console.log("//////////");
+		console.log(data);
+		$.ajax({
+			type: "DELETE",
+			url: "/basket/list",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			dataType: "text"
+		}).done(function(resp){
+			alert("성공");
+			console.log(resp);
+		}).fail(function(error){
+			alert("실패");
+			console.log(error);
+		});
+});
+
+
 //아임포트 초기화
 function init() {
 	var IMP = window.IMP; // 생략가능
