@@ -1,5 +1,6 @@
 package com.wc.toyshop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wc.toyshop.controller.dto.BasketListReqDto;
 import com.wc.toyshop.controller.dto.BasketSumDto;
 import com.wc.toyshop.controller.dto.OrdersReqDto;
+import com.wc.toyshop.controller.respdto.OrdersDetailRespDto;
+import com.wc.toyshop.controller.respdto.OrdersRespDto;
 import com.wc.toyshop.model.Basket;
 import com.wc.toyshop.model.Orders;
 import com.wc.toyshop.model.Orders_detail;
@@ -25,8 +28,28 @@ public class OrdersService {
 	private BasketRepository basketRepository;
 	
 	@Transactional
-	public int 결제전합계(int userId, BasketListReqDto dto) {
+	public List<OrdersRespDto> 결제내역조회(int userId){
+		//return할 dto 생성
+		List<OrdersRespDto> respDtos = new ArrayList<OrdersRespDto>();
 		
+		//해당 유저의 모든 주문을 가져옴
+		List<Orders> orders = ordersRepository.findByUserId(userId);
+		
+		for (Orders order : orders) {
+			
+			List<OrdersDetailRespDto> details = ordersRepository.findByUserIdOrdersIdJoin(userId, order.getId());
+			OrdersRespDto ordersRespDto = OrdersRespDto.builder()
+					.orders(order)
+					.details(details)
+					.build();
+			respDtos.add(ordersRespDto);
+		}
+		return respDtos;
+	}
+	
+	@Transactional
+	public int 결제전합계(int userId, BasketListReqDto dto) {
+		//수정필요 : stock 고려 
 		int sum = 0;
 		BasketSumDto sumDto = null;
 		for (String basketId : dto.getIdList()) {
