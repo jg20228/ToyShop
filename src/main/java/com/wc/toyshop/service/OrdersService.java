@@ -12,6 +12,7 @@ import com.wc.toyshop.controller.dto.BasketListReqDto;
 import com.wc.toyshop.controller.dto.BasketSumDto;
 import com.wc.toyshop.controller.dto.OrdersReqDto;
 import com.wc.toyshop.controller.respdto.OrdersDetailDto;
+import com.wc.toyshop.controller.respdto.OrdersDetailRespDto;
 import com.wc.toyshop.controller.respdto.OrdersRespDto;
 import com.wc.toyshop.model.Basket;
 import com.wc.toyshop.model.Orders;
@@ -27,6 +28,24 @@ public class OrdersService {
 	
 	@Autowired
 	private BasketRepository basketRepository;
+	
+	public List<Orders> 모든주문조회(){
+		return ordersRepository.findAllJoin();
+	}
+	
+	public List<Orders> 유저주문조회(int userId){
+		return ordersRepository.findAllByUserIdJoin(userId);
+	}
+	
+	public OrdersDetailRespDto 유저주문상세보기(int ordersId, int userId) {
+		Orders orders = ordersRepository.findByOrdersId(ordersId);
+		List<OrdersDetailDto> details = ordersRepository.findByUserIdOrdersIdJoin(userId, ordersId);
+		OrdersDetailRespDto ordersDetailRespDto = OrdersDetailRespDto.builder()
+				.orders(orders)
+				.details(details)
+				.build();
+		return ordersDetailRespDto;
+	}
 	
 	@Transactional
 	public OrdersRespDto 결제상세내역(LoginUser loginUser, int ordersId) {

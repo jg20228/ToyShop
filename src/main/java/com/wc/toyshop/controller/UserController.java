@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.wc.toyshop.controller.dto.CommonRespDto;
 import com.wc.toyshop.controller.dto.UserJoinReqDto;
+import com.wc.toyshop.controller.respdto.CommonRespDto;
 import com.wc.toyshop.model.User;
 import com.wc.toyshop.repository.UserRepository;
 

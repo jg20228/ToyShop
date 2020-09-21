@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wc.toyshop.config.auth.LoginUserAnnotation;
 import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.controller.dto.AddBasketReqDto;
-import com.wc.toyshop.controller.dto.CommonRespDto;
 import com.wc.toyshop.controller.dto.BasketListReqDto;
 import com.wc.toyshop.controller.dto.UpdateBasketReqDto;
+import com.wc.toyshop.controller.respdto.CommonRespDto;
 import com.wc.toyshop.service.BasketService;
 
 @Controller

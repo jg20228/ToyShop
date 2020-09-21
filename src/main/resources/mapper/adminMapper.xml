@@ -4,4 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wc.toyshop.repository.AdminRepository">
 
+	<select id="findAll" resultType="com.wc.toyshop.model.User">
+		SELECT *
+		FROM user
+	</select>
 </mapper>

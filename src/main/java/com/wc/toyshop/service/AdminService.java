@@ -17,9 +17,11 @@ import com.wc.toyshop.controller.dto.UpdateProductReqDto;
 import com.wc.toyshop.controller.respdto.ProductRespDto;
 import com.wc.toyshop.model.Product;
 import com.wc.toyshop.model.Stock;
+import com.wc.toyshop.model.User;
 import com.wc.toyshop.repository.AdminRepository;
 import com.wc.toyshop.repository.ProductRepository;
 import com.wc.toyshop.repository.StockRepository;
+import com.wc.toyshop.repository.UserRepository;
 
 @Service
 public class AdminService {
@@ -32,6 +34,10 @@ public class AdminService {
 	private StockRepository stockRepository;
 	@Value("${file.path}")
 	private String uploadFolder;
+	
+	public List<User> 모든유저조회(){
+		return adminRepository.findAll();
+	}
 
 	@Transactional
 	public void 상품등록(AddProductReqDto addProductReqDto) {

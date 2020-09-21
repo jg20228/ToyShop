@@ -1,4 +1,4 @@
-package com.wc.toyshop.controller.dto;
+package com.wc.toyshop.controller.respdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

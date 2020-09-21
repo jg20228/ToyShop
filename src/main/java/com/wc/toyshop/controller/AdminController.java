@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wc.toyshop.controller.dto.AddProductReqDto;
-import com.wc.toyshop.controller.dto.CommonRespDto;
 import com.wc.toyshop.controller.dto.UpdateProductReqDto;
+import com.wc.toyshop.controller.respdto.CommonRespDto;
 import com.wc.toyshop.service.AdminService;
+import com.wc.toyshop.service.OrdersService;
 import com.wc.toyshop.service.ProductService;
 
 @Controller
@@ -23,11 +24,38 @@ public class AdminController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private OrdersService ordersService;
+	
 	//주문관리
+	@GetMapping("/admin/orders")
+	public String ordersList(Model model) {
+		model.addAttribute("orders", ordersService.모든주문조회());
+		return "/admin/orders/ordersList";
+	}
+	
+	//주문관리에서 id를 눌렀을때 
+	@GetMapping("/admin/orders/detail/{id}/{userId}")
+	public String ordersDetail(@PathVariable int id,@PathVariable int userId, Model model) {
+		System.out.println(id+"///////"+userId);
+		model.addAttribute("dto", ordersService.유저주문상세보기(id,userId));
+		return "/admin/orders/ordersDetail";
+	}
+	
+	//주문관리에서 username을 눌렀을때 findByUserId
+	@GetMapping("/admin/orders/search/{userId}")
+	public String ordersSearch(@PathVariable int userId,Model model) {
+		model.addAttribute("orders", ordersService.유저주문조회(userId));
+		return "/admin/orders/ordersList";
+	}
 	
 	
 	//유저관리
-	
+	@GetMapping("/admin/user")
+	public String userList(Model model) {
+		model.addAttribute("users",adminService.모든유저조회());
+		return "/admin/user/userList";
+	}
 	
 	//상품리스트 보기
 	@GetMapping("/admin/product")

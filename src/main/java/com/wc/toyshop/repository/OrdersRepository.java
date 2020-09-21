@@ -9,6 +9,8 @@ import com.wc.toyshop.model.Orders;
 import com.wc.toyshop.model.Orders_detail;
 
 public interface OrdersRepository {
+	public List<Orders> findAllByUserIdJoin(int userId);
+	public List<Orders> findAllJoin();
 	public Orders findByOrdersId(int ordersId);
 	public List<Orders> findByUserId(int userId);
 	public List<OrdersDetailDto> findByUserIdOrdersIdJoin(int userId, int ordersId);

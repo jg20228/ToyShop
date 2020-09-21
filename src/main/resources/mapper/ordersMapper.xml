@@ -4,6 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wc.toyshop.repository.OrdersRepository">
 
+	<!-- 관리자가 결제내역 들어가면 보이는 페이지 -->
+	<select id="findAllByUserIdJoin" resultType="com.wc.toyshop.controller.respdto.AdminOrdersRespDto">
+	SELECT o.id, o.userId "userId",u.username, o.impId, o.merchantId, o.applyNum, o.totalPay, o.createDate
+		FROM orders o INNER JOIN user u
+		ON u.id = o.userId
+	WHERE u.id = #{userId}
+	ORDER BY id DESC
+	</select>
+
+	<!-- 관리자가 결제내역 들어가면 보이는 페이지 -->
+	<select id="findAllJoin" resultType="com.wc.toyshop.controller.respdto.AdminOrdersRespDto">
+	SELECT o.id, o.userId "userId", u.username, o.impId, o.merchantId, o.applyNum, o.totalPay, o.createDate
+		FROM orders o INNER JOIN user u
+		ON u.id = o.userId
+	ORDER BY id DESC
+	</select>
+
 	<select id="findByOrdersId" resultType="com.wc.toyshop.model.Orders">
 	SELECT id, userId, impId, merchantId, applyNum, totalPay,createDate
 		FROM orders
@@ -31,6 +48,7 @@
 	ORDER BY id DESC
 	</select>
 
+	<!-- 아임포트가 나타나기전에 DB에 있는 값으로 더함 -->
 	<select id="sum" resultType="com.wc.toyshop.controller.dto.BasketSumDto">
 	SELECT b.count, p.price
 		FROM basket b INNER JOIN product p
@@ -40,11 +58,13 @@
 	WHERE u.id = #{userId} AND b.id = #{basketId}
 	</select>
 	
+	<!-- 주문완료시 Orders 테이블에 들어감 -->
 	<insert id="saveOrders" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO orders(userId, impId, merchantId, applyNum,totalPay,createDate)
 		VALUES(#{userId},#{impId},#{merchantId},#{applyNum},#{totalPay},now())
 	</insert>
-	
+
+	<!-- 주문완료시 Orders_detail 테이블에 들어감 -->	
 	<insert id="saveDetails">
 		INSERT INTO orders_detail(ordersId, productId, count, status,createDate)
 		VALUES(#{ordersId},#{productId},#{count},#{status},now())

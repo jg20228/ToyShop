@@ -47,8 +47,8 @@
 						<li class="nav-item"><a class="nav-link" href="/orders">결제내역</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/product">상품관리</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">유저관리</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">주문관리</a></li>
+						<li class="nav-item"><a class="nav-link" href="/admin/user">유저관리</a></li>
+						<li class="nav-item"><a class="nav-link" href="/admin/orders">주문관리</a></li>
 					</c:when>
 
 					<c:otherwise>
