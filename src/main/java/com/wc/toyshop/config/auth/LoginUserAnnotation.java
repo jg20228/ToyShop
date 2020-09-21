@@ -5,6 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
+//컨트롤러에서 쓰는 어노테이션
+
 @Target(ElementType.PARAMETER)//어디서 사용할 수 있는지 정의함
 @Retention(RetentionPolicy.RUNTIME)//실행시점을 정하는것인데 RUNTIME으로 정함
 public @interface LoginUserAnnotation {

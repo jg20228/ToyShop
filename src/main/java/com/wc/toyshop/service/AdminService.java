@@ -23,15 +23,17 @@ import com.wc.toyshop.repository.ProductRepository;
 import com.wc.toyshop.repository.StockRepository;
 import com.wc.toyshop.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AdminService {
 
-	@Autowired
-	private AdminRepository adminRepository;
-	@Autowired
-	private ProductRepository productRepository;
-	@Autowired
-	private StockRepository stockRepository;
+	private final AdminRepository adminRepository;
+	private final ProductRepository productRepository;
+	private final StockRepository stockRepository;
+	
+	//yml에서 설정된 값을 가져옴
 	@Value("${file.path}")
 	private String uploadFolder;
 	
@@ -41,8 +43,10 @@ public class AdminService {
 
 	@Transactional
 	public void 상품등록(AddProductReqDto addProductReqDto) {
+		//중복방지를 위한 UUID
 		UUID uuid = UUID.randomUUID();
 
+		//UUID와 업로드한 파일이미지를 더함
 		String imageFileName = uuid + "" + addProductReqDto.getFile().getOriginalFilename();
 		Path imageFilePath = Paths.get(uploadFolder + imageFileName);
 
@@ -64,6 +68,7 @@ public class AdminService {
 				.productId(product.getId())
 				.count(0)
 				.build();
+		//재고량도 같이 넣어줘야 한다.
 		stockRepository.save(stock);
 	}
 

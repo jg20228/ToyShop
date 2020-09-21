@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Ajax로 요청했을때 응답결과를 알려줄려고 사용했음
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -4,6 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
+
+//상품 추가누르고 서버에 요청할때 받는 Dto
 @Data
 public class AddProductReqDto {
 	private MultipartFile file;

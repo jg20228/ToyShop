@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import lombok.Data;
 
+//관리자가 결제내역볼때 응답해주는 Dto
 @Data
 public class AdminOrdersRespDto {
 	private int id; 

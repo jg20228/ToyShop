@@ -4,6 +4,8 @@ import com.wc.toyshop.model.User;
 
 import lombok.Data;
 
+
+//각 컨트롤러에서 어노테이션을 사용하기 위함
 @Data
 public class LoginUser {
 	private int id;

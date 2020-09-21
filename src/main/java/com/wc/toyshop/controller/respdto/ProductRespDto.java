@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+//상품페이지에 사용됨
 @Getter
 @Setter
 @Builder

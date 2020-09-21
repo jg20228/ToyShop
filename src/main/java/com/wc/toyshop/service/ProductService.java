@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 import com.wc.toyshop.controller.respdto.ProductRespDto;
 import com.wc.toyshop.repository.ProductRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ProductService {
-	@Autowired
-	private ProductRepository productRepository;
+	
+	private final ProductRepository productRepository;
 	
 	public List<ProductRespDto> 모든상품() {
 		return productRepository.findAllJoin();

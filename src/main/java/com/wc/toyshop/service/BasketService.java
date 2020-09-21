@@ -13,11 +13,13 @@ import com.wc.toyshop.controller.respdto.BasketRespDto;
 import com.wc.toyshop.model.Basket;
 import com.wc.toyshop.repository.BasketRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BasketService {
 	
-	@Autowired
-	private BasketRepository basketRepository;
+	private final BasketRepository basketRepository;
 	
 	@Transactional
 	public void 장바구니목록삭제(BasketListReqDto dto) {
@@ -31,7 +33,7 @@ public class BasketService {
 	}
 	
 	public List<BasketRespDto> 장바구니조회(int userId) {
-		return basketRepository.findyAllJoin(userId);
+		return basketRepository.findAllJoin(userId);
 	}
 	
 	@Transactional
@@ -49,8 +51,8 @@ public class BasketService {
 		
 		//count는 10이 한계이다. front에서 잘막아도 들어올수있으므로 여기서 10초과시 10으로 지정해줌
 		if(addBasketReqDto.getCount()>10) addBasketReqDto.setCount(10);
-		//값이 없으면 save 있으면 count값을보고 update
 		
+		//값이 없으면 save 있으면 count값을보고 update
 		if(basketEntity==null) {
 			System.out.println("값이 없어서 null 실행");
 			basketEntity = Basket.builder()

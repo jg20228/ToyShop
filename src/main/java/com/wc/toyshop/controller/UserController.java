@@ -1,6 +1,5 @@
 package com.wc.toyshop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,27 +10,30 @@ import com.wc.toyshop.controller.respdto.CommonRespDto;
 import com.wc.toyshop.model.User;
 import com.wc.toyshop.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 	
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+	//로그인하는곳
 	@GetMapping("/auth/login")
 	public String login() {
 		System.out.println("login");
 		return "/auth/login";
 	}
 	
+	//회원가입하는곳
 	@GetMapping("/auth/join")
 	public String join() {
 		System.out.println("join");
 		return "/auth/join";
 	}
 	
+	//회원가입 (수정필요)
 	@PostMapping("/auth/join")
 	public CommonRespDto<?> joinProc(UserJoinReqDto reqUser) {
 		

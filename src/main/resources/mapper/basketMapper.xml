@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wc.toyshop.repository.BasketRepository">
-	<select id="findyAllJoin" resultType="com.wc.toyshop.controller.respdto.BasketRespDto">
+	<select id="findAllJoin" resultType="com.wc.toyshop.controller.respdto.BasketRespDto">
 		SELECT b.id, p.imgUrl, p.name, p.price, b.count
 		FROM user u INNER JOIN basket b
 		ON u.id = b.userId

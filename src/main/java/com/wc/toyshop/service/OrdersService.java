@@ -20,14 +20,14 @@ import com.wc.toyshop.model.Orders_detail;
 import com.wc.toyshop.repository.BasketRepository;
 import com.wc.toyshop.repository.OrdersRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class OrdersService {
 	
-	@Autowired
-	private OrdersRepository ordersRepository;
-	
-	@Autowired
-	private BasketRepository basketRepository;
+	private final OrdersRepository ordersRepository;
+	private final BasketRepository basketRepository;
 	
 	public List<Orders> 모든주문조회(){
 		return ordersRepository.findAllJoin();
@@ -87,7 +87,7 @@ public class OrdersService {
 	
 	@Transactional
 	public int 결제전합계(int userId, BasketListReqDto dto) {
-		//수정필요 : stock 고려 
+		//수정필요 : stock을 추가해야한다.
 		int sum = 0;
 		BasketSumDto sumDto = null;
 		for (String basketId : dto.getIdList()) {
@@ -101,6 +101,7 @@ public class OrdersService {
 	@Transactional
 	public void 결제후테이블(int userId, OrdersReqDto dto) {
 		System.out.println("orders 시작");
+		//부모가 되는 Orders 테이블에 값을 먼저 넣는다.
 		Orders orders = Orders.builder()
 				.userId(userId)
 				.impId(dto.getImpId())
@@ -111,6 +112,8 @@ public class OrdersService {
 		ordersRepository.saveOrders(orders);
 		System.out.println("orders 끝");
 		System.out.println("detail 시작");
+		
+		//detail은 여러건이 될 수 있어서 for each문으로 값을 넣는다.
 		for (String basketId : dto.getIdList()) {
 			Basket basket = basketRepository.findById(Integer.parseInt(basketId));
 			Orders_detail detail = Orders_detail.builder()

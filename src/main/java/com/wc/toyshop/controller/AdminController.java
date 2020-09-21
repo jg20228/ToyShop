@@ -1,6 +1,5 @@
 package com.wc.toyshop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,16 +15,15 @@ import com.wc.toyshop.service.AdminService;
 import com.wc.toyshop.service.OrdersService;
 import com.wc.toyshop.service.ProductService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
-	@Autowired
-	AdminService adminService;
-	@Autowired
-	private ProductService productService;
-	
-	@Autowired
-	private OrdersService ordersService;
+	private final AdminService adminService;
+	private final ProductService productService;
+	private final OrdersService ordersService;
 	
 	//주문관리
 	@GetMapping("/admin/orders")
