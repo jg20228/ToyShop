@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wc.toyshop.repository.OrdersRepository">
 
+	<select id="findByOrdersId" resultType="com.wc.toyshop.model.Orders">
+	SELECT id, userId, impId, merchantId, applyNum, totalPay,createDate
+		FROM orders
+	WHERE id = #{ordersId}
+	</select>
+
 	<!-- 해당 유저의 결제내역 -->
 	<select id="findByUserId" resultType="com.wc.toyshop.model.Orders">
 	SELECT id, userId, impId, merchantId, applyNum, totalPay,createDate
@@ -13,7 +19,7 @@
 	</select>
 
 	
-	<select id="findByUserIdOrdersIdJoin" resultType="com.wc.toyshop.controller.respdto.OrdersDetailRespDto">
+	<select id="findByUserIdOrdersIdJoin" resultType="com.wc.toyshop.controller.respdto.OrdersDetailDto">
 	SELECT o.id , p.imgUrl, p.name, p.price, d.count, d.status
 		FROM orders o LEFT OUTER JOIN orders_detail d
 		ON o.id = d.ordersId

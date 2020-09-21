@@ -23,6 +23,12 @@ public class AdminController {
 	@Autowired
 	private ProductService productService;
 	
+	//주문관리
+	
+	
+	//유저관리
+	
+	
 	//상품리스트 보기
 	@GetMapping("/admin/product")
 	public String productList(Model model) {

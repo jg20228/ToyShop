@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.controller.dto.BasketListReqDto;
 import com.wc.toyshop.controller.dto.BasketSumDto;
 import com.wc.toyshop.controller.dto.OrdersReqDto;
-import com.wc.toyshop.controller.respdto.OrdersDetailRespDto;
+import com.wc.toyshop.controller.respdto.OrdersDetailDto;
 import com.wc.toyshop.controller.respdto.OrdersRespDto;
 import com.wc.toyshop.model.Basket;
 import com.wc.toyshop.model.Orders;
@@ -28,6 +29,24 @@ public class OrdersService {
 	private BasketRepository basketRepository;
 	
 	@Transactional
+	public OrdersRespDto 결제상세내역(LoginUser loginUser, int ordersId) {
+		Orders orders = ordersRepository.findByOrdersId(ordersId);
+		
+		//DB의 구매 userId와 로그인된 userId 비교
+		if(orders.getUserId()!=loginUser.getId()) {
+			//여기서 처리
+		}
+		
+		List<OrdersDetailDto> details = ordersRepository.findByUserIdOrdersIdJoin(loginUser.getId(), ordersId);
+		OrdersRespDto ordersRespDto = OrdersRespDto.builder()
+				.user(loginUser)
+				.details(details)
+				.orders(orders)
+				.build();
+		return ordersRespDto;
+	}
+	
+	@Transactional
 	public List<OrdersRespDto> 결제내역조회(int userId){
 		//return할 dto 생성
 		List<OrdersRespDto> respDtos = new ArrayList<OrdersRespDto>();
@@ -37,7 +56,7 @@ public class OrdersService {
 		
 		for (Orders order : orders) {
 			
-			List<OrdersDetailRespDto> details = ordersRepository.findByUserIdOrdersIdJoin(userId, order.getId());
+			List<OrdersDetailDto> details = ordersRepository.findByUserIdOrdersIdJoin(userId, order.getId());
 			OrdersRespDto ordersRespDto = OrdersRespDto.builder()
 					.orders(order)
 					.details(details)
