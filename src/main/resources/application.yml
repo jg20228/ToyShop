@@ -16,5 +16,8 @@ spring:
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
     
+wc:
+  key: wc1234
+    
 file:
   path: C:/Users/kk/Desktop/Spring-instagram/toyshop/src/main/resources/static/img/

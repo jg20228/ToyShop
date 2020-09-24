@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +21,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
+import com.wc.toyshop.config.auth.PrincipalDetailsService;
 import com.wc.toyshop.util.Script;
 
 
@@ -28,16 +31,25 @@ import com.wc.toyshop.util.Script;
 //prePostEnabled @PreAuthorize, postAuthorize 어노테이션 활성화 (hasRole('ROLE_MANAGER'))
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	@Autowired
+	private PrincipalDetailsService principalDetailService;
+	
 	//해당 메서드의 리턴되는 오브젝트를 IoC로 등록해줌
 	@Bean
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
 	}
 	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 	//패스워드 비교하는곳
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
+		auth.userDetailsService(principalDetailService).passwordEncoder(encodePwd());
 	}
 
 	@Override
@@ -71,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 					//여기서 세션을 무효화 하는게 맞는지 모르겠음
 					HttpSession session = request.getSession();
 					session.invalidate();
+					System.out.println("세션무효화");
 					return;
 				}
 			})

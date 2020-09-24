@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.wc.toyshop.model.User;
 
+import lombok.Data;
+
 //시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킴
 //로그인 진행이 완료가 되면 session을 만들어줍니다. (Security ContextHolder)
 //여기에 들어갈수있는 오브젝트가 정해져있음 => Authentication 타입의 객체만 가능
@@ -18,6 +20,7 @@ import com.wc.toyshop.model.User;
 
 //결론 :Security Session => Authentication => UserDetails(PrincipalDetails)
 
+@Data
 public class PrincipalDetails implements UserDetails{
 
 	private User user;//콤포지션

@@ -27,13 +27,17 @@ public class PrincipalDetailsService implements UserDetailsService{
 	//시큐리티 session(내부 Authentication(내부 UserDetails))
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("loadUserByUsername 실행됨");
 		//시큐리티 로그인이 실행되면 username으로 if로 분기 나눔
 		User userEntity = userRepository.findByUsername(username).get();
 		if(userEntity != null) {
+			System.out.println("loadUserByUsername 의 if문 안");
+			System.out.println(username);
 			//아이디가 있으면 세션등록 loginUser
 			session.setAttribute("loginUser", new LoginUser(userEntity));
 		}
 		//없으면 새로 만듬
+		System.out.println("loadUserByUsername 의 return 직전");
 		return new PrincipalDetails(userEntity);
 	}
 }
