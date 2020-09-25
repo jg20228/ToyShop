@@ -87,6 +87,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 					return;
 				}
 			})
+		.and()
+			.oauth2Login()
+			.loginPage("/auth/login")
 			;
 	}
 }

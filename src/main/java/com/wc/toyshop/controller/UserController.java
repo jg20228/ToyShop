@@ -155,7 +155,8 @@ public class UserController {
 		}
 		System.out.println("자동 로그인");
 		
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), wcKey));
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), wcKey));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/test/index";

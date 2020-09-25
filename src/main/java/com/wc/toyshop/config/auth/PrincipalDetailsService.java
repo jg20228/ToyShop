@@ -32,7 +32,6 @@ public class PrincipalDetailsService implements UserDetailsService{
 		User userEntity = userRepository.findByUsername(username).get();
 		if(userEntity != null) {
 			System.out.println("loadUserByUsername 의 if문 안");
-			System.out.println(username);
 			//아이디가 있으면 세션등록 loginUser
 			session.setAttribute("loginUser", new LoginUser(userEntity));
 		}
