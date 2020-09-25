@@ -17,8 +17,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   
   security:    oauth2:      client:        registration:          google: #/oauth2/authorization/google
-            client-id: 클라이언트 id
-            client-secret: 비밀
+            client-id: 
+            client-secret: 
             scope:            - email
             - profile
   

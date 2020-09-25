@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wc.toyshop.repository.UserRepository">
 
+	<select id="findByProviderAndProviderId" resultType="com.wc.toyshop.model.User">
+		SELECT * 
+		FROM user
+		WHERE provider = #{provider} AND providerId = #{providerId}
+	</select>
+
 	<select id="findByUsername" resultType="com.wc.toyshop.model.User">
 		SELECT * 
 		FROM user
@@ -12,8 +18,9 @@
 
 	<insert id="save">
 		INSERT INTO user(username, email, password,
-		name,address,phone,gender,role,createDate)
-		VALUES(#{username},#{email},#{password},#{name},#{address},#{phone},#{gender},#{role},
+		name,address,phone,gender,role,provider,providerId,createDate)
+		VALUES(#{username},#{email},#{password},
+		#{name},#{address},#{phone},#{gender},#{role},#{provider},#{providerId},
 		now())
 	</insert>
 

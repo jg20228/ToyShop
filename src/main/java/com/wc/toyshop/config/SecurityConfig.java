@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.wc.toyshop.config.auth.PrincipalDetailsService;
+import com.wc.toyshop.config.oauth.PrincipalOauth2UserService;
 import com.wc.toyshop.util.Script;
 
 
@@ -30,6 +31,10 @@ import com.wc.toyshop.util.Script;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) //securedEnabled = secured 어노테이션 활성화
 //prePostEnabled @PreAuthorize, postAuthorize 어노테이션 활성화 (hasRole('ROLE_MANAGER'))
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	
+	@Autowired
+	private PrincipalOauth2UserService principalOauth2UserService;
 	
 	@Autowired
 	private PrincipalDetailsService principalDetailService;
@@ -90,6 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 			.oauth2Login()
 			.loginPage("/auth/login")
+			.userInfoEndpoint()
+			.userService(principalOauth2UserService)//후처리 : loadUser
 			;
+		//구글 로그인이 완료되면 코드X (엑세스토큰+사용자프로필정보를 한번에 받음)<-OAuth2 클라이언트 라이브러리
 	}
 }
