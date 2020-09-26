@@ -28,6 +28,12 @@
 	
 	<br/>
 	
+	<!-- 네이버 로그인 이 주소는 마음대로 바꿔서 적을수 없음-->
+	<!-- yml에 적었던 https://nid.naver.com/oauth2.0/authorize 가 실행됨-->
+	<a href="/oauth2/authorization/naver">네이버 로그인</a>
+	
+	<br/>
+	
 	<a href="/auth/join">회원가입 하러 가기</a>
 	
 </div>
