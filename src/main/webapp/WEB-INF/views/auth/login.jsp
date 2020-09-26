@@ -23,6 +23,11 @@
 	
 	<br/>
 	
+	<!-- 페이스북 로그인 이 주소는 마음대로 바꿔서 적을수 없음-->
+	<a href="/oauth2/authorization/facebook">페이스북 로그인</a>
+	
+	<br/>
+	
 	<a href="/auth/join">회원가입 하러 가기</a>
 	
 </div>

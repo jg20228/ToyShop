@@ -21,6 +21,13 @@ spring:
             client-secret: 
             scope:            - email
             - profile
+            
+          facebook: #/oauth2/authorization/facebook
+            client-id: 
+            client-secret: 
+            scope:
+            - email
+            - public_profile
   
 wc:
   key: wc1234
