@@ -12,10 +12,9 @@
 		<input type="submit" value="로그인">
 	</form>
 	<!-- 카카오 로그인 -->
-	<br /> <a href="https://kauth.kakao.com/oauth/authorize?client_id=25ed0bbfe75444dcca1ac7386b6481cc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"> 
+	<br /> 
 	<img height="38px"
 		src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"></img>
-	</a> 
 	<br/>
 	
 	<!-- 구글 로그인 이 주소는 마음대로 바꿔서 적을수 없음-->
@@ -31,6 +30,11 @@
 	<!-- 네이버 로그인 이 주소는 마음대로 바꿔서 적을수 없음-->
 	<!-- yml에 적었던 https://nid.naver.com/oauth2.0/authorize 가 실행됨-->
 	<a href="/oauth2/authorization/naver">네이버 로그인</a>
+	
+	<br/>
+	
+	<!-- yml에 적었던 https://nid.naver.com/oauth2.0/authorize 가 실행됨-->
+	<a href="/oauth2/authorization/kakao">카카오 로그인</a>
 	
 	<br/>
 	

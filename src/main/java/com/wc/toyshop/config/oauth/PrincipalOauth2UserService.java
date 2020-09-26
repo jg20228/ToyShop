@@ -2,7 +2,7 @@ package com.wc.toyshop.config.oauth;
 
 import java.util.Map;
 import java.util.Optional;
-
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +19,7 @@ import com.wc.toyshop.config.auth.PrincipalDetails;
 import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.config.oauth.provider.FacebookUserInfo;
 import com.wc.toyshop.config.oauth.provider.GoogleUserInfo;
+import com.wc.toyshop.config.oauth.provider.KaKaoUserInfo;
 import com.wc.toyshop.config.oauth.provider.NaverUserInfo;
 import com.wc.toyshop.config.oauth.provider.OAuth2UserInfo;
 import com.wc.toyshop.model.User;
@@ -62,8 +63,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		}else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
 			System.out.println("네이버 로그인 요청");
 			oAuth2UserInfo = new NaverUserInfo((Map)oauth2User.getAttributes().get("response"));
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
+			System.out.println("카카오 로그인 요청");
+			oAuth2UserInfo = new KaKaoUserInfo((String)oauth2User.getAttributes().get("id").toString(), (Map)oauth2User.getAttributes().get("properties"));
 		}else {
-			System.out.println("우리는 구글과 페이스북 네이버만 지원해요");
+			System.out.println("우리는 구글과 페이스북 네이버 카카오만 지원해요");
 		}
 		
 		
@@ -73,7 +77,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		String password = bCryptPasswordEncoder.encode(wcKey);
 		String email = oAuth2UserInfo.getEmail();
 		String name = oAuth2UserInfo.getName();
-		if(email==null) email="이메일 없음";
+		UUID uuid = UUID.randomUUID();
+		if(email==null) email="이메일 없음_"+uuid;
 		String role = "ROLE_USER";
 		
 		User userEntity = userRepository.findByProviderAndProviderId(provider, providerId);
