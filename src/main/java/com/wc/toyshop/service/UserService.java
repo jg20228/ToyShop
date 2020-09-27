@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wc.toyshop.controller.respdto.UpdateRespDto;
 import com.wc.toyshop.model.User;
 import com.wc.toyshop.repository.UserRepository;
 
@@ -32,5 +33,11 @@ public class UserService {
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		userRepository.save(user);
+	}
+	
+	public UpdateRespDto 회원수정이동(int userId) {
+		UpdateRespDto user = userRepository.updateForm(userId);
+		System.out.println(user);
+		return user;
 	}
 }

@@ -23,5 +23,11 @@
 		#{name},#{address},#{phone},#{gender},#{role},#{provider},#{providerId},
 		now())
 	</insert>
+	
+	<select id="updateForm" resultType="com.wc.toyshop.controller.respdto.UpdateRespDto">
+		SELECT username, email, name, address, phone, gender, profileImage, role, provider, createDate
+		FROM user
+		WHERE id = #{userId}
+	</select>
 
 </mapper>

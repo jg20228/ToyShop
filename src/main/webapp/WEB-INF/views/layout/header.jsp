@@ -21,6 +21,8 @@
 <!-- 아임포트 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v8.0" nonce="Uy72m5Nv"></script>
 <title>Toy</title>
 </head>
 <body>
@@ -45,6 +47,7 @@
 						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
 						<li class="nav-item"><a class="nav-link" href="/basket/list/">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="/orders">결제내역</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/update">회원수정</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/product">상품관리</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/user">유저관리</a></li>
@@ -55,6 +58,7 @@
 						<li class="nav-item"><a class="nav-link" href="/product">상품</a></li>
 						<li class="nav-item"><a class="nav-link" href="/basket/list/">장바구니</a></li>
 						<li class="nav-item"><a class="nav-link" href="/orders">결제내역</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/update">회원수정</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>

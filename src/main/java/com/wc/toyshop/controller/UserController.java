@@ -13,16 +13,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wc.toyshop.config.auth.LoginUserAnnotation;
+import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.controller.dto.UserJoinReqDto;
 import com.wc.toyshop.controller.respdto.CommonRespDto;
 import com.wc.toyshop.model.KakaoProfile;
@@ -152,9 +156,21 @@ public class UserController {
 				.phone("입력필요")
 				.gender("성별")
 				.role("ROLE_USER")
+				.provider("일반")
 				.build();
 		
 		userService.회원가입(userEntity);
 		return new CommonRespDto<String>(1, "회원가입성공");
 	}
+	@GetMapping("/user/update")
+	public String update(@LoginUserAnnotation LoginUser loginUser,Model model) {
+		model.addAttribute("user", userService.회원수정이동(loginUser.getId()));
+		return "/user/update";
+	}
+	
+	@PutMapping("/user/update")
+	public CommonRespDto<?> updateProc(){
+		return null;
+	}
+	
 }
