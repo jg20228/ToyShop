@@ -1,4 +1,5 @@
 # MYSQL 계정 설정
+
 ```sql
 create user 'toyshop'@'%' identified by '1234';
 GRANT ALL PRIVILEGES ON *.* TO 'toyshop'@'%';
@@ -7,6 +8,7 @@ use toyshop;
 ```
 
 # Model 설정
+
 ```sql
 DROP table orders_detail;
 DROP table orders;
@@ -84,4 +86,10 @@ CREATE TABLE orders_detail(
 	FOREIGN KEY(ordersId) REFERENCES orders(id),
 	FOREIGN KEY(productId) REFERENCES product(id)
 ) engine=InnoDB default charset=utf8;
+```
+
+# admin 계정
+
+```sql
+update user set role = 'ROLE_ADMIN' where id = ?;
 ```

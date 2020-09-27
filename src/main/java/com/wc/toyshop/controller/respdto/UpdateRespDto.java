@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class UpdateRespDto {
+	private int id;
 	private String username;
 	private String email;
 	private String name;

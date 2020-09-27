@@ -10,8 +10,10 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.wc.toyshop.config.aop.BasketInterceptor;
 import com.wc.toyshop.config.auth.LoginUserAnnotation;
 import com.wc.toyshop.config.auth.dto.LoginUser;
 
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class WebMvcConfig implements WebMvcConfigurer{
 
 	private final HttpSession httpSession;	
+	
 	
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
@@ -42,5 +45,12 @@ public class WebMvcConfig implements WebMvcConfigurer{
 				return httpSession.getAttribute("loginUser");
 			}
 		});
+	}
+
+	//장바구니
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new BasketInterceptor())
+		.addPathPatterns("/basket/list/");
 	}
 }

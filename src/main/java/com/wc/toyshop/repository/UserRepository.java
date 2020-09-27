@@ -10,4 +10,5 @@ public interface UserRepository {
 	public Optional<User> findByUsername(String username);
 	public void save(User user);
 	public UpdateRespDto updateForm(int userId);
+	public void update(User user);
 }

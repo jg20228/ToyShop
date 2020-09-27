@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wc.toyshop.config.auth.LoginUserAnnotation;
 import com.wc.toyshop.config.auth.dto.LoginUser;
 import com.wc.toyshop.controller.dto.UserJoinReqDto;
+import com.wc.toyshop.controller.dto.UserUpdateReqDto;
 import com.wc.toyshop.controller.respdto.CommonRespDto;
 import com.wc.toyshop.model.KakaoProfile;
 import com.wc.toyshop.model.OAuthToken;
@@ -169,8 +171,11 @@ public class UserController {
 	}
 	
 	@PutMapping("/user/update")
-	public CommonRespDto<?> updateProc(){
-		return null;
+	public CommonRespDto<?> updateProc(@LoginUserAnnotation LoginUser loginUser,UserUpdateReqDto dto){
+		if(loginUser.getId()!=dto.getId()) {
+			return null;
+		}
+		userService.회원수정(dto);
+		return new CommonRespDto<String>(1, "회원수정성공");
 	}
-	
 }
