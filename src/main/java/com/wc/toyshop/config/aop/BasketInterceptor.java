@@ -19,6 +19,8 @@ public class BasketInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=utf-8");
 		LoginUser principal = (LoginUser)session.getAttribute("loginUser");
+		
+		//여기에서 조건을 수정하면 가능, 주문건수가 1건이상이면 true를 리턴해도 된다.
 		if(principal.getAddress().equals("입력필요")) {
 			PrintWriter out =  response.getWriter();
 			out.print("<script>");

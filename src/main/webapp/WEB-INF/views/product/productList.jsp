@@ -64,6 +64,7 @@ function check(userId,productId){
 		dataType: "text"
 	}).done(function(resp){
 		console.log(resp);
+		alert("장바구니에 성공적으로 추가되었습니다.")
 	}).fail(function(error){
 		console.log(error);
 	});

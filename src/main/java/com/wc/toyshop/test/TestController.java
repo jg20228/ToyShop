@@ -49,7 +49,7 @@ public class TestController {
 	}
 
 	
-	@GetMapping("/test/index")
+	@GetMapping({"/test/index","/"})
 	public String testIndex() {
 		return "index";
 	}

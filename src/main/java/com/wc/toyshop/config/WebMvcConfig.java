@@ -31,14 +31,12 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 		
 		resolvers.add(new HandlerMethodArgumentResolver() {
-			
 			@Override
 			public boolean supportsParameter(MethodParameter parameter) {
 				boolean isLoginUserAnnotation = parameter.getParameterAnnotation(LoginUserAnnotation.class) !=null;
 				boolean isUserClass = LoginUser.class.equals(parameter.getParameterType());
 				return  isLoginUserAnnotation && isUserClass;
 			}
-			
 			@Override
 			public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 					NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
@@ -47,10 +45,10 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		});
 	}
 
-	//장바구니
+	//장바구니 들어갈때 Interceptor 발동
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new BasketInterceptor())
-		.addPathPatterns("/basket/list/");
+		//registry.addInterceptor(new BasketInterceptor())
+		//.addPathPatterns("/basket/list/");
 	}
 }
